@@ -1,23 +1,84 @@
-var exec = require('cordova/exec');
+var argscheck = require('cordova/argscheck'),
+    exec = require('cordova/exec');
 
+var AdcashSDK = {};
 
-exports.createInterstitial = function(zoneId, success, error) {
-    exec(success, error, "AdcashSDK", "createInterstitial", [zoneId]);
+AdcashSDK.AD_SIZE = {
+  SMART_BANNER: 0
 };
 
-exports.loadInterstitial = function(success, error) {
-    exec(success, error, "AdcashSDK", "loadInterstitial", [null]);
+AdcashSDK.AD_POSITION = {
+  TOP: 0,
+  BOTTOM: 1 //Default
 };
 
-exports.showInterstitial = function(success, error) {
-    exec(success, error, "AdcashSDK", "showInterstitial", [null]);
+/*
+ * set options:
+ *  {
+ *    adSize: string, // banner type size
+ *    position: integer, // default position
+ *    autoShow: boolean,  // if set to true, no need call showBanner or showInterstitial
+ *    adExtra: {
+ *    }
+ *   }
+ */
+AdcashSDK.setOptions = function(options, successCallback, failureCallback) {
+    if(typeof options === 'object') {
+      cordova.exec( successCallback, failureCallback, 'AdcashSDK', 'setOptions', [options] );
+    } else {
+      if(typeof failureCallback === 'function') {
+        failureCallback('options should be specified.');
+      }
+    }
+  };
+
+AdcashSDK.createBanner = function(args, successCallback, failureCallback) {
+  var options = {};
+  if(typeof args === 'object') {
+    for(var k in args) {
+      if(k === 'success') { if(args[k] === 'function') successCallback = args[k]; }
+      else if(k === 'error') { if(args[k] === 'function') failureCallback = args[k]; }
+      else {
+        options[k] = args[k];
+      }
+    }
+  } else if(typeof args === 'string') {
+    options = { zoneId: args };
+  }
+  cordova.exec( successCallback, failureCallback, 'AdcashSDK', 'createBanner', [ options ] );
 };
 
-
-exports.createBanner = function(zoneId, success, error) {
-    exec(success, error, "AdcashSDK", "createBanner", [zoneId]);
+AdcashSDK.removeBanner = function(successCallback, failureCallback) {
+  cordova.exec( successCallback, failureCallback, 'AdcashSDK', 'removeBanner', [] );
 };
 
-exports.loadBanner = function(success, error) {
-    exec(success, error, "AdcashSDK", "loadBanner", [null]);
+AdcashSDK.hideBanner = function(successCallback, failureCallback) {
+  cordova.exec( successCallback, failureCallback, 'AdcashSDK', 'hideBanner', [] );
 };
+
+AdcashSDK.showBanner = function(position, successCallback, failureCallback) {
+  if(typeof position === 'undefined') position = 1;
+  cordova.exec( successCallback, failureCallback, 'AdcashSDK', 'showBanner', [ position ] );
+};
+
+AdcashSDK.prepareInterstitial = function(args, successCallback, failureCallback) {
+  var options = {};
+  if(typeof args === 'object') {
+    for(var k in args) {
+      if(k === 'success') { if(args[k] === 'function') successCallback = args[k]; }
+      else if(k === 'error') { if(args[k] === 'function') failureCallback = args[k]; }
+      else {
+        options[k] = args[k];
+      }
+    }
+  } else if(typeof args === 'string') {
+    options = { zoneId: args };
+  }
+  cordova.exec( successCallback, failureCallback, 'AdcashSDK', 'prepareInterstitial', [ options ] );
+};
+
+AdcashSDK.showInterstitial = function(successCallback, failureCallback) {
+  cordova.exec( successCallback, failureCallback, 'AdcashSDK', 'showInterstitial', [] );
+};
+
+module.exports = AdcashSDK;

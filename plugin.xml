@@ -27,5 +27,12 @@
             </feature>
         </config-file>
         <source-file src="src/ios/AdcashSDK.m" />
+        <source-file src="src/ios/libAdcashSDK_AFNetworking.a" framework="true" />
+        <header-file src="src/ios/AdcashSDK.h" />
+        <header-file src="src/ios/ACBannerView.h" />
+        <header-file src="src/ios/ACInterstitial.h" />
+        <header-file src="src/ios/ACError.h" />
+        <header-file src="src/ios/ACConversionTracker.h" />
+
     </platform>
 </plugin>
