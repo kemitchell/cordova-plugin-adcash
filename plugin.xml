@@ -7,7 +7,7 @@
     <platform name="android">
 
 		<dependency id="cordova-plugin-googleplayservices"/>
-		<dependency id="cordova-plugin-android-support-v7-appcompat"/>
+		<dependency id="cordova-plugin-android-support-v4"/>
 
 		<config-file parent="/manifest/application" target="AndroidManifest.xml">
 			<activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
