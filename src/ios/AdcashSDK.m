@@ -2,7 +2,7 @@
 
 #import <Cordova/CDV.h>
 #import <Foundation/Foundation.h>
-#import "AdcashSDK.h"
+#import <AdcashSDK/AdcashSDK.h>
 
 static NSString * const OPT_AUTO_SHOW = @"autoShow";
 static NSString * const OPT_AD_SIZE = @"adSize";
@@ -329,6 +329,19 @@ typedef NS_ENUM(NSUInteger, ACBannerPosition) {
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+#pragma mark - ConversionTracker commands
+
+- (void) reportAppOpen:(CDVInvokedUrlCommand*)command
+{
+    [self.commandDelegate runInBackground:^{
+        NSString *appId = [[NSBundle mainBundle] bundleIdentifier];
+        [ACConversionTracker trackApplicationOpenForAppID:appId];
+
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
 }
 
 #pragma mark - ACBannerView delegate

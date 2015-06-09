@@ -81,4 +81,8 @@ AdcashSDK.showInterstitial = function(successCallback, failureCallback) {
   cordova.exec( successCallback, failureCallback, 'AdcashSDK', 'showInterstitial', [] );
 };
 
+AdcashSDK.reportAppOpen = function(successCallback, failureCallback) {
+  cordova.exec (successCallback, failureCallback, 'AdcashSDK', 'reportAppOpen', []);
+}
+
 module.exports = AdcashSDK;
