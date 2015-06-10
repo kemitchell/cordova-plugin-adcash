@@ -12,22 +12,22 @@
 				android:theme="@android:style/Theme.Translucent" />
 		</config-file>
 
-		<config-file parent="/*" target="AndroidManifest.xml" > 
+		<config-file parent="/*" target="AndroidManifest.xml" >
 			<uses-permission android:name="android.permission.INTERNET"/>
 			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 		</config-file>
-		
+
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="AdcashSDK">
                 <param name="android-package" value="com.adcash.cordova.plugin.AdcashSDK" />
             </feature>
         </config-file>
-		
+
         <source-file src="src/android/AdcashSDK.java" target-dir="src/com/adcash/cordova/plugin/AdcashSDK" />
         <source-file src="src/android/libs/adcash-sdk-lib-1.2.1.jar" target-dir="libs" />
-		
+
     </platform>
-	
+
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="AdcashSDK">
@@ -35,12 +35,18 @@
             </feature>
         </config-file>
         <source-file src="src/ios/AdcashSDK.m" />
-        <source-file src="src/ios/libAdcashSDK_AFNetworking.a" framework="true" />
-        <header-file src="src/ios/AdcashSDK.h" />
-        <header-file src="src/ios/ACBannerView.h" />
-        <header-file src="src/ios/ACInterstitial.h" />
-        <header-file src="src/ios/ACError.h" />
-        <header-file src="src/ios/ACConversionTracker.h" />
+        <framework src="src/ios/AdcashSDK.framework" custom="true" />
 
+        <!-- AdcashSDK's system framework dependencies -->
+        <framework src="AdSupport.framework" />
+        <framework src="CoreGraphics.framework" />
+        <framework src="CoreTelephony.framework" />
+        <framework src="Foundation.framework" />
+        <framework src="UIKit.framework" />
+
+        <!-- AFNetworking's system framework dependencies -->
+        <framework src="MobileCoreServices.framework" />
+        <framework src="Security.framework" />
+        <framework src="SystemConfiguration.framework" />
     </platform>
 </plugin>
