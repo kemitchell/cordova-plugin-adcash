@@ -1,11 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="com.adcash.cordova.plugin" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="cordova-plugin-adcash" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>AdcashSDK</name>
     <js-module name="AdcashSDK" src="www/AdcashSDK.js">
         <clobbers target="cordova.plugins.AdcashSDK" />
     </js-module>
     <platform name="android">
 
+		<framework src="com.android.support:support-v4:7.5.0" />
+		<framework src="com.google.android.gms:play-services:7.5.0" />
+		
 		<config-file parent="/manifest/application" target="AndroidManifest.xml">
 			<activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
 				android:name="com.adcash.mobileads.AdcashInterstitialActivity"
